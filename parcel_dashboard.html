@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tableau de bord de suivi des parcelles pour la gestion des données communales et de l'état de traitement">
+    <meta name="author" content="xAI">
+    <title>Suivi des Parcelles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard_css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Chart.js must be loaded before dashboard_js.js and as a UMD build -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="dashboard_js.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="logo.png" alt="Logo Suivi des Parcelles">
+                <h2>Suivi des Parcelles</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active" data-tab="overview">
+                    <i class="fas fa-home"></i>
+                    <span>Vue d'ensemble</span>
+                </li>
+                <li class="nav-item" data-tab="communes">
+                    <i class="fas fa-map"></i>
+                    <span>Communes</span>
+                </li>
+                <li class="nav-item" data-tab="progress">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Avancement</span>
+                </li>
+                <li class="nav-item" data-tab="analytics">
+                    <i class="fas fa-analytics"></i>
+                    <span>Analytique</span>
+                </li>
+                <li class="nav-item" data-tab="reports">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Rapports</span>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <button class="sidebar-toggle md:hidden" aria-label="Toggle sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="page-title">Vue d'ensemble du tableau de bord</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher une commune ou un géomaticien..." aria-label="Recherche">
+                    </div>
+                    <button class="refresh-button" aria-label="Rafraîchir le tableau de bord">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <div class="user-menu" aria-label="Menu utilisateur">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div id="overview" class="tab-content active">
+                    <div class="key-insights">
+                        <div class="insight-header">
+                            <h3><i class="fas fa-lightbulb"></i> Points clés d'analyse</h3>
+                            <div>
+                                <button class="btn btn-primary btn-sm" id="toggleInsights">
+                                    <i class="fas fa-chevron-down"></i> Voir détails
+                                </button>
+                            </div>
+                        </div>
+                        <div class="insight-content" id="insightsContent" style="display: none;">
+                            <div class="insight-card">
+                                <h4>Doublons géométriques</h4>
+                                <ul>
+                                    <li><span class="commune-highlight">Tomboronkoto</span>: <span class="percentage">81,2%</span> supprimées (56 834 → 10 688)</li>
+                                    <li><span class="commune-highlight">Bandafassi</span>: <span class="percentage">66,8%</span> supprimées (11 731 → 3 900)</li>
+                                    <li><span class="commune-highlight">Bembou</span>: <span class="percentage">64,6%</span> supprimées (5 885 → 2 083)</li>
+                                    <li>Nécessitent une révision des méthodes de collecte</li>
+                                </ul>
+                            </div>
+                            <div class="insight-card">
+                                <h4>Doublons attributaires</h4>
+                                <ul>
+                                    <li><span class="commune-highlight">Ndoga Babacar</span>: <span class="percentage">25,28%</span> (798 doublons) - Problème d'identification</li>
+                                    <li><span class="commune-highlight">Tomboronkoto</span>: <span class="percentage">15,83%</span> (1 692 doublons) - Plus grand nombre absolu</li>
+                                    <li><span class="commune-highlight">Ballou</span>: <span class="percentage">1,41%</span> (20 doublons) - Meilleure qualité</li>
+                                </ul>
+                            </div>
+                            <div class="insight-card">
+                                <h4>Conflits de propriété</h4>
+                                <ul>
+                                    <li>135 parcelles en conflit (vs 211 précédemment)</li>
+                                    <li><span class="commune-highlight">Netteboulou</span>: 56 parcelles en conflit (priorité)</li>
+                                    <li><span class="commune-highlight">Missirah</span>: 34 parcelles en conflit (priorité)</li>
+                                    <li><span class="commune-highlight">Ndoga Babacar</span>: 0 conflits malgré 2 359 parcelles non jointes</li>
+                                </ul>
+                            </div>
+                            <div class="insight-card">
+                                <h4>Validation URM</h4>
+                                <ul>
+                                    <li><span class="commune-highlight">Koar, Bala, Sinthiou Maleme</span>: 0 parcelles validées</li>
+                                    <li><span class="commune-highlight">Tomboronkoto</span>: 1 826 rejets URM malgré 5 402 validées</li>
+                                    <li>Écart important entre retenues et lot 1-46 (ex: Sinthiou Maleme: 662 vs 1 656)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-boxes"></i></div>
+                            <div>
+                                <div class="metric-value" id="totalCollected">0</div>
+                                <div class="metric-label">Total collectées</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-poll"></i></div>
+                            <div>
+                                <div class="metric-value" id="totalSurveyed">0</div>
+                                <div class="metric-label">Total enquêtées</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-check-circle"></i></div>
+                            <div>
+                                <div class="metric-value" id="totalValidated">0</div>
+                                <div class="metric-label">Validées</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-times-circle"></i></div>
+                            <div>
+                                <div class="metric-value" id="totalRejected">0</div>
+                                <div class="metric-label">Rejetées</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-percentage"></i></div>
+                            <div>
+                                <div class="metric-value" id="avgValidationRate">--%</div>
+                                <div class="metric-label">Taux de validation moyen</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div>
+                                <div class="metric-value" id="fastestCommune">-</div>
+                                <div class="metric-label">Commune la plus rapide</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-hourglass-half"></i></div>
+                            <div>
+                                <div class="metric-value" id="slowestCommune">-</div>
+                                <div class="metric-label">Commune la plus lente</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Répartition des statuts de traitement</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="statusChart">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="statusChart" aria-label="Graphique de répartition des statuts de traitement"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Top Communes par volume</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="communesChart">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="communesChart" aria-label="Graphique des communes principales par volume"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-overview">
+                        <h3>Progression globale</h3>
+                        <div class="progress-stats">
+                            <div class="progress-item">
+                                <span class="progress-label">Taux de validation par rapport à l'objectif (70 000)</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="validationVsGoalFill"></div>
+                                </div>
+                                <span class="progress-value" id="validationVsGoal">0%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span class="progress-label">Délibérées / Collectées</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="deliberatedVsCollectedFill"></div>
+                                </div>
+                                <span class="progress-value" id="deliberatedVsCollected">0%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span class="progress-label">CTASF / Collectées</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="ctasfVsCollectedFill"></div>
+                                </div>
+                                <span class="progress-value" id="ctasfVsCollected">0%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span class="progress-label">CTASF / Validées</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="ctasfVsValidatedFill"></div>
+                                </div>
+                                <span class="progress-value" id="ctasfVsValidated">0%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span class="progress-label">Délibérées / Validées</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="deliberatedVsValidatedFill"></div>
+                                </div>
+                                <span class="progress-value" id="deliberatedVsValidated">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-section">
+                        <h3>Résumé du statut des communes</h3>
+                        <div class="activity-list" id="communesList"></div>
+                    </div>
+                </div>
+
+                <div id="communes" class="tab-content">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Détails des communes</h3>
+                            <div class="table-controls">
+                                <button class="btn btn-primary" id="exportBtn">
+                                    <i class="fas fa-file-excel"></i> Exporter en Excel (conserve l'ordre des colonnes)
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-info">
+                            <div class="drag-instructions">
+                                <i class="fas fa-arrows-alt"></i> Faites glisser les entêtes pour réorganiser les colonnes
+                                <button type="button" id="resetColumnOrder" class="column-order-reset">
+                                    <i class="fas fa-undo"></i> Réinitialiser l'ordre
+                                </button>
+                            </div>
+                        </div>
+                        <table id="communesTable" class="data-table">
+                            <thead>
+                                <tr class="draggable-columns">
+                                    <th data-column="commune" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Commune</div></th>
+                                    <th data-column="region" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Région</div></th>
+                                    <th data-column="totalParcelles" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Total Parcelles</div></th>
+                                    <th data-column="percentTotal" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> % du Total</div></th>
+                                    <th data-column="nicad" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> NICAD</div></th>
+                                    <th data-column="percentNicad" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> % NICAD</div></th>
+                                    <th data-column="ctasf" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> CTASF</div></th>
+                                    <th data-column="percentCtasf" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> % CTASF</div></th>
+                                    <th data-column="deliberated" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Délibérées</div></th>
+                                    <th data-column="percentDeliberated" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> % Délibérée</div></th>
+                                    <th data-column="parcellesBrutes" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parcelles brutes</div></th>
+                                    <th data-column="collected" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parcelles collectées</div></th>
+                                    <th data-column="surveyed" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parcelles enquêtées</div></th>
+                                    <th data-column="rejectionReasons" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Motifs rejet post-trait.</div></th>
+                                    <th data-column="retained" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parcelles retenues</div></th>
+                                    <th data-column="validated" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parcelles validées URM</div></th>
+                                    <th data-column="rejected" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parcelles rejetées URM</div></th>
+                                    <th data-column="urmRejectionReasons" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Motifs rejet URM</div></th>
+                                    <th data-column="corrected" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parcelles corrigées</div></th>
+                                    <th data-column="geomaticien" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Geomaticien</div></th>
+                                    <th data-column="individualJoined" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parc. indiv. jointes</div></th>
+                                    <th data-column="collectiveJoined" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parc. coll. jointes</div></th>
+                                    <th data-column="unjoined" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parc. non jointes</div></th>
+                                    <th data-column="duplicatesRemoved" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Doublons supprimés</div></th>
+                                    <th data-column="duplicateRemovalRate" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Taux supp. doublons (%)</div></th>
+                                    <th data-column="parcelsInConflict" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parc. en conflit</div></th>
+                                    <th data-column="significantDuplicates" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Signif. Duplicates</div></th>
+                                    <th data-column="postProcessedLot1_46" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Parc. post-traitées lot 1-46</div></th>
+                                    <th data-column="jointureStatus" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Statut jointure</div></th>
+                                    <th data-column="jointureErrorMessage" draggable="true"><div class="column-header"><i class="fas fa-grip-lines"></i> Msg erreur jointure</div></th>
+                                </tr>
+                            </thead>
+                            <tbody id="communesTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="progress" class="tab-content">
+                    <div class="progress-section">
+                        <h3>Avancement du traitement par commune</h3>
+                        <div class="progress-cards" id="progressCards"></div>
+                    </div>
+                </div>
+
+                <div id="analytics" class="tab-content">
+                    <div class="key-insights">
+                        <div class="insight-header">
+                            <h3><i class="fas fa-chart-pie"></i> Recommandations basées sur l'analyse</h3>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-card">
+                                <h4>Réduire les doublons géométriques</h4>
+                                <ul>
+                                    <li>Renforcer les protocoles de collecte à <span class="commune-highlight">Tomboronkoto, Bandafassi, et Bembou</span></li>
+                                    <li>Formation complémentaire des équipes sur le terrain</li>
+                                    <li>Optimiser les paramètres GPS pour éviter les doublons</li>
+                                </ul>
+                            </div>
+                            <div class="insight-card">
+                                <h4>Résoudre les erreurs de jointure</h4>
+                                <ul>
+                                    <li>Corriger les problèmes d'IDUP à <span class="commune-highlight">Ndoga Babacar</span></li>
+                                    <li>Vérifier la correspondance entre QR codes et anciens IDUP</li>
+                                    <li>Déployer un outil de contrôle pour la validation des identifiants</li>
+                                </ul>
+                            </div>
+                            <div class="insight-card">
+                                <h4>Vérifier les conflits</h4>
+                                <ul>
+                                    <li>Prioriser <span class="commune-highlight">Netteboulou (56)</span> et <span class="commune-highlight">Missirah (34)</span> pour les enquêtes</li>
+                                    <li>Mettre en place une procédure de médiation locale</li>
+                                    <li>Documenter les résolutions pour établir des précédents</li>
+                                </ul>
+                            </div>
+                            <div class="insight-card">
+                                <h4>Améliorer la validation</h4>
+                                <ul>
+                                    <li>Examiner pourquoi <span class="commune-highlight">Koar et Bala</span> n'ont aucune parcelle validée</li>
+                                    <li>Clarifier pourquoi certaines parcelles retenues ne sont pas dans le lot 1-46</li>
+                                    <li>Standardiser les critères de validation entre communes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="chart-container full-width">
+                            <div class="chart-header">
+                                <h3>Analyse de l'efficacité du traitement</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="efficiencyChart">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="efficiencyChart" aria-label="Graphique d'efficacité du traitement"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Motifs de rejet</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="rejectionChart">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="rejectionChart" aria-label="Graphique des motifs de rejet"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Charge de travail des géomaticiens</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="workloadChart">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="workloadChart" aria-label="Graphique de charge de travail des géomaticiens"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Répartition des statuts de jointure</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="jointureChart">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="jointureChart" aria-label="Graphique de répartition des statuts de jointure"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Carte de chaleur des conflits</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="conflictHeatmap">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="conflictHeatmap" aria-label="Carte de chaleur des conflits"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Tendances de validation dans le temps</h3>
+                                <div class="chart-actions">
+                                    <button class="btn btn-sm btn-secondary chart-download" data-chart="validationTrendChart">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="validationTrendChart" aria-label="Graphique des tendances de validation"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reports" class="tab-content">
+                    <div class="reports-section">
+                        <h3>Générer des rapports</h3>
+                        <div class="report-options">
+                            <div class="report-card">
+                                <h4>Rapport synthétique</h4>
+                                <p>Vue d'ensemble complète de l'état de traitement de toutes les communes</p>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-file-download"></i> Générer
+                                </button>
+                            </div>
+                            <div class="report-card">
+                                <h4>Analyse détaillée</h4>
+                                <p>Analyse approfondie avec motifs de rejet et recommandations</p>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-file-download"></i> Générer
+                                </button>
+                            </div>
+                            <div class="report-card">
+                                <h4>Indicateurs de performance</h4>
+                                <p>Indicateurs de performance et d'efficacité de l'équipe</p>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-file-download"></i> Générer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="auto-refresh-status active" id="autoRefreshStatus">
+                <i class="fas fa-sync-alt"></i>
+                <span>Dernier rafraîchissement : --:-- | Auto-rafraîchissement : ACTIVÉ</span>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
