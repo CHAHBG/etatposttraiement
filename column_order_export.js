@@ -19,8 +19,8 @@ function exportWithColumnOrder() {
         'surveyed': 'Parcelles enquêtées',
         'rejectionReasons': 'Motifs de rejet post-traitement',
         'retained': 'Parcelles retenues après post-traitement',
-        'validated': 'Parcelles validées par l'URM',
-        'rejected': 'Parcelles rejetées par l'URM',
+        'validated': 'Parcelles validées par l\'URM',
+        'rejected': 'Parcelles rejetées par l\'URM' ,
         'urmRejectionReasons': 'Motifs de rejet URM',
         'corrected': 'Parcelles corrigées',
         'geomaticien': 'Geomaticien',
@@ -33,7 +33,7 @@ function exportWithColumnOrder() {
         'significantDuplicates': 'Significant Duplicates',
         'postProcessedLot1_46': 'Parc. post-traitées lot 1-46',
         'jointureStatus': 'Statut jointure',
-        'jointureErrorMessage': 'Message d'erreur jointure'
+        'jointureErrorMessage': 'Message d\'erreur jointure'
     };
     
     // Get only visible columns in their current order
