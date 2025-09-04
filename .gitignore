@@ -1,0 +1,29 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers temporaires
+*.log
+*.tmp
+.cache/
+
+# Fichiers node (si vous utilisez npm/node)
+node_modules/
+package-lock.json
+
+# Fichiers de développement local
+.env
+.env.local
+.netlify/
+
+# Fichiers d'édition
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Fichiers temporaires du projet
+dashboard_js_fixed.js
+fixed_export_function.js

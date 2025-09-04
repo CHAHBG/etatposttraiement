@@ -1,0 +1,7 @@
+[build]
+  publish = "/"
+
+[[redirects]]
+  from = "/*"
+  to = "/parcel_dashboard.html"
+  status = 200
