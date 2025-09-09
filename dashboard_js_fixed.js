@@ -205,36 +205,36 @@ function parseCSV(csv) {
 
     const headers = splitLine(lines[0]);
     const headerMap = {
-        'Commune': 'commune',
-        'RÃ©gion': 'region',
+    'Commune': 'commune',
+    'Région': 'region',
         'Total Parcelles': 'totalParcelles',
         '% du total': 'percentTotal',
         'NICAD': 'nicad',
         '% NICAD': 'percentNicad',
         'CTASF': 'ctasf',
         '% CTASF': 'percentCtasf',
-        'DÃ©libÃ©rÃ©es': 'deliberated',
-        '% DÃ©libÃ©rÃ©e': 'percentDeliberated',
+    'Délibérées': 'deliberated',
+    '% Délibérée': 'percentDeliberated',
         'Parcelles brutes': 'parcellesBrutes',
-        'Parcelles collectÃ©es (sans doublon gÃ©omÃ©trique)': 'collected',
-        'Parcelles enquÃªtÃ©es': 'surveyed',
+    'Parcelles collectées (sans doublon géométrique)': 'collected',
+    'Parcelles enquêtées': 'surveyed',
         'Motifs de rejet post-traitement': 'rejectionReasons',
-        'Parcelles retenues aprÃ¨s post-traitement': 'retained',
-        'Parcelles validÃ©es par lâ€™URM': 'validated',
-        'Parcelles rejetÃ©es par lâ€™URM': 'rejected',
+        'Parcelles retenues après post-traitement': 'retained',
+    'Parcelles validées par l\'URM': 'validated',
+    'Parcelles rejetées par l\'URM': 'rejected',
         'Motifs de rejet URM': 'urmRejectionReasons',
-        'Parcelles corrigÃ©es': 'corrected',
+    'Parcelles corrigées': 'corrected',
         'Geomaticien': 'geomaticien',
         'Parcelles individuelles jointes': 'individualJoined',
         'Parcelles collectives jointes': 'collectiveJoined',
         'Parcelles non jointes': 'unjoined',
-        'Doublons supprimÃ©s': 'duplicatesRemoved',
+    'Doublons supprimés': 'duplicatesRemoved',
         'Taux suppression doublons (%)': 'duplicateRemovalRate',
         'Parcelles en conflit': 'parcelsInConflict',
         'Significant Duplicates': 'significantDuplicates',
-        'Parc. post-traitÃ©es lot 1-46': 'postProcessedLot1_46',
+    'Parc. post-traitées lot 1-46': 'postProcessedLot1_46',
         'Statut jointure': 'jointureStatus',
-        'Message dâ€™erreur jointure': 'jointureErrorMessage'
+    'Message d’erreur jointure': 'jointureErrorMessage'
     };
 
     const headerIndexes = headers.map(h => headerMap[h] || h);
@@ -263,7 +263,7 @@ function parseCSV(csv) {
         const err = document.createElement('div');
         err.id = 'csvError';
         err.style.cssText = 'color: red; font-size: 1.2rem; margin: 20px;';
-        err.textContent = 'Aucune donnÃ©e chargÃ©e depuis Google Sheet. VÃ©rifiez le format de la feuille.';
+        err.textContent = 'Aucune donnée chargée depuis Google Sheet. Vérifiez le format de la feuille.';
         document.body.prepend(err);
     }
 
@@ -323,10 +323,10 @@ function setupEventListeners() {
             link.classList.add('active');
             document.getElementById('page-title').textContent = {
                 overview: 'Vue d\'ensemble',
-                communes: 'DÃ©tails des communes',
+                communes: 'Détails des communes',
                 progress: 'Avancement du traitement',
                 analytics: 'Analytique & Rapports',
-                reports: 'GÃ©nÃ©rer des rapports'
+                reports: 'Générer des rapports'
             }[tabName];
             if (tabName === 'analytics') {
                 initializeAnalyticsCharts();
@@ -346,9 +346,9 @@ function setupEventListeners() {
         toggleInsightsBtn.addEventListener('click', () => {
             const isVisible = insightsContent.style.display !== 'none';
             insightsContent.style.display = isVisible ? 'none' : 'grid';
-            toggleInsightsBtn.innerHTML = isVisible ? 
-                '<i class="fas fa-chevron-down"></i> Voir dÃ©tails' : 
-                '<i class="fas fa-chevron-up"></i> Masquer dÃ©tails';
+                toggleInsightsBtn.innerHTML = isVisible ? 
+                '<i class="fas fa-chevron-down"></i> Voir détails' : 
+                '<i class="fas fa-chevron-up"></i> Masquer détails';
         });
     }
     
@@ -403,13 +403,13 @@ function initializeColumnFilter() {
     if (existingFilter) existingFilter.remove();
 
     const headers = [
-        'Commune', 'RÃ©gion', 'Total Parcelles', '% du Total', 'NICAD', '% NICAD', 'CTASF', '% CTASF',
-        'DÃ©libÃ©rÃ©es', '% DÃ©libÃ©rÃ©e', 'Parcelles brutes', 'Parcelles collectÃ©es', 'Parcelles enquÃªtÃ©es',
-        'Motifs de rejet post-traitement', 'Parcelles retenues', 'Parcelles validÃ©es', 'Parcelles rejetÃ©es',
-        'Motifs de rejet URM', 'Parcelles corrigÃ©es', 'Geomaticien', 'Parcelles individuelles jointes',
-        'Parcelles collectives jointes', 'Parcelles non jointes', 'Doublons supprimÃ©s', 'Taux suppression doublons (%)',
-        'Parcelles en conflit', 'Significant Duplicates', 'Parc. post-traitÃ©es lot 1-46', 'Statut jointure',
-        'Message dâ€™erreur jointure'
+        'Commune', 'Région', 'Total Parcelles', '% du Total', 'NICAD', '% NICAD', 'CTASF', '% CTASF',
+        'Délibérées', '% Délibérée', 'Parcelles brutes', 'Parcelles collectées', 'Parcelles enquêtées',
+        'Motifs de rejet post-traitement', 'Parcelles retenues', 'Parcelles validées', 'Parcelles rejetées',
+        'Motifs de rejet URM', 'Parcelles corrigées', 'Géomaticien', 'Parcelles individuelles jointes',
+        'Parcelles collectives jointes', 'Parcelles non jointes', 'Doublons supprimés', 'Taux suppression doublons (%)',
+        'Parcelles en conflit', 'Significant Duplicates', 'Parc. post-traitées lot 1-46', 'Statut jointure',
+        'Message d\'erreur jointure'
     ];
 
     const headerKeys = [
@@ -425,8 +425,8 @@ function initializeColumnFilter() {
     filterContainer.style.marginBottom = '1rem';
     filterContainer.innerHTML = `
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="columnFilterBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                SÃ©lectionner les colonnes
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="columnFilterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                Sélectionner les colonnes
             </button>
             <div class="dropdown-menu" style="max-height: 400px; overflow-y: auto;">
                 ${headers.map((header, index) => `
@@ -496,7 +496,7 @@ function setupDraggableColumns() {
     document.getElementById('resetColumnOrder')?.addEventListener('click', () => {
         currentColumnOrder = [...defaultColumnOrder];
         applyColumnOrder();
-        showNotification('Ordre des colonnes rÃ©initialisÃ©', 'success');
+    showNotification('Ordre des colonnes réinitialisé', 'success');
         // Save column order to local storage
         localStorage.setItem('columnOrder', JSON.stringify(currentColumnOrder));
     });
@@ -569,7 +569,7 @@ function setupDraggableColumns() {
                 localStorage.setItem('columnOrder', JSON.stringify(currentColumnOrder));
                 
                 // Show feedback to user
-                showNotification('Ordre des colonnes mis Ã  jour', 'success');
+                showNotification('Ordre des colonnes mis à jour', 'success');
             }
             this.classList.remove('drop-target');
         });
@@ -711,35 +711,35 @@ function updateMetrics() {
         extra.className = 'progress-extra-metrics';
         extra.innerHTML = `
             <div class="progress-item">
-                <span class="progress-label">Taux de validation par rapport Ã  l'objectif (70 000)</span>
+                <span class="progress-label">Taux de validation par rapport à l'objectif (70 000)</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="validationVsGoalFill"></div>
                 </div>
                 <span class="progress-value" id="validationVsGoal">${validationVsGoal}%</span>
             </div>
             <div class="progress-item">
-                <span class="progress-label">DÃ©libÃ©rÃ©es / CollectÃ©es</span>
+                <span class="progress-label">Délibérées / Collectées</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="deliberatedVsCollectedFill"></div>
                 </div>
                 <span class="progress-value" id="deliberatedVsCollected">${deliberatedVsCollected}%</span>
             </div>
             <div class="progress-item">
-                <span class="progress-label">CTASF / CollectÃ©es</span>
+                <span class="progress-label">CTASF / Collectées</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="ctasfVsCollectedFill"></div>
                 </div>
                 <span class="progress-value" id="ctasfVsCollected">${ctasfVsCollected}%</span>
             </div>
             <div class="progress-item">
-                <span class="progress-label">CTASF / ValidÃ©es</span>
+                <span class="progress-label">CTASF / Validées</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="ctasfVsValidatedFill"></div>
                 </div>
                 <span class="progress-value" id="ctasfVsValidated">${ctasfVsValidated}%</span>
             </div>
             <div class="progress-item">
-                <span class="progress-label">DÃ©libÃ©rÃ©es / ValidÃ©es</span>
+                <span class="progress-label">Délibérées / Validées</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="deliberatedVsValidatedFill"></div>
                 </div>
@@ -839,9 +839,9 @@ function downloadChart(chartId) {
     if (!canvas) return;
     
     const chartName = {
-        'efficiencyChart': 'Analyse_EfficacitÃ©',
+        'efficiencyChart': 'Analyse_Efficacité',
         'rejectionChart': 'Motifs_Rejet',
-        'workloadChart': 'Charge_GÃ©omaticiens',
+        'workloadChart': 'Charge_Géomaticiens',
         'jointureChart': 'Statuts_Jointure',
         'conflictHeatmap': 'Conflits_Parcelles',
         'validationTrendChart': 'Tendance_Validation',
@@ -856,7 +856,7 @@ function downloadChart(chartId) {
     link.click();
     link.remove();
     
-    showNotification(`Le graphique a Ã©tÃ© tÃ©lÃ©chargÃ© avec succÃ¨s.`, 'success');
+    showNotification(`Le graphique a été téléchargé avec succès.`, 'success');
 }
 
 /**
@@ -904,10 +904,10 @@ function initializeStatusChart() {
         if (!commune.commune || commune.commune.toLowerCase() === 'total') return;
         const status = getStatus(commune);
         switch (status.text) {
-            case 'TerminÃ©': statusCounts.completed++; break;
+            case 'Terminé': statusCounts.completed++; break;
             case 'En cours': statusCounts.processing++; break;
             case 'En attente': statusCounts.pending++; break;
-            case 'ProblÃ¨mes': statusCounts.rejected++; break;
+            case 'Problèmes': statusCounts.rejected++; break;
         }
     });
 
@@ -915,7 +915,7 @@ function initializeStatusChart() {
     charts.status = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['TerminÃ©', 'En cours', 'En attente', 'ProblÃ¨mes'],
+            labels: ['Terminé', 'En cours', 'En attente', 'Problèmes'],
             datasets: [{
                 data: [statusCounts.completed, statusCounts.processing, statusCounts.pending, statusCounts.rejected],
                 backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ef4444']
@@ -954,7 +954,7 @@ function initializeCommunesChart() {
         data: {
             labels: topCommunes.map(c => c.commune),
             datasets: [{
-                label: 'Parcelles CollectÃ©es',
+                label: 'Parcelles Collectées',
                 data: topCommunes.map(c => c.collected),
                 backgroundColor: '#3498db'
             }]
@@ -1011,7 +1011,7 @@ function initializeEfficiencyChart() {
             labels: communeNames,
             datasets: [
                 {
-                    label: 'Parcelles collectÃ©es',
+                    label: 'Parcelles collectées',
                     data: collectedData,
                     backgroundColor: '#0072BC99', // With opacity
                     borderColor: '#0072BC',
@@ -1021,7 +1021,7 @@ function initializeEfficiencyChart() {
                     categoryPercentage: 0.8
                 },
                 {
-                    label: 'Parcelles validÃ©es',
+                    label: 'Parcelles validées',
                     data: validatedData,
                     backgroundColor: '#4CAF5099', // With opacity
                     borderColor: '#4CAF50',
@@ -1208,7 +1208,7 @@ function initializeWorkloadChart() {
         data: {
             labels: Object.keys(workload),
             datasets: [{
-                label: 'Parcelles ValidÃ©es',
+                label: 'Parcelles Validées',
                 data: Object.values(workload),
                 backgroundColor: '#3b82f6'
             }]
@@ -1257,7 +1257,7 @@ function initializeJointureChart() {
     charts.jointure = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['ComplÃ©tÃ©', 'En attente', 'Erreur'],
+            labels: ['Complété', 'En attente', 'Erreur'],
             datasets: [{
                 data: [statusCounts.completed, statusCounts.pending, statusCounts.error],
                 backgroundColor: ['#10b981', '#f59e0b', '#ef4444']
@@ -1349,7 +1349,7 @@ function initializeValidationTrendChart() {
         data: {
             labels: trendData.map(d => d.commune),
             datasets: [{
-                label: 'Parcelles ValidÃ©es',
+                label: 'Parcelles Validées',
                 data: trendData.map(d => d.validated),
                 borderColor: '#10b981',
                 fill: false
@@ -1430,10 +1430,10 @@ function getStatus(commune) {
     if (!commune || commune.collected === 0) return { class: 'status-pending', text: 'En attente' };
     if (commune.validated && commune.collected) {
         const validationRate = (commune.validated / commune.collected) * 100;
-        if (validationRate >= 80) return { class: 'status-completed', text: 'TerminÃ©' };
+    if (validationRate >= 80) return { class: 'status-completed', text: 'Terminé' };
         if (validationRate >= 50) return { class: 'status-processing', text: 'En cours' };
     }
-    return { class: 'status-rejected', text: 'ProblÃ¨mes' };
+    return { class: 'status-rejected', text: 'Problèmes' };
 }
 
 /**
@@ -1469,11 +1469,11 @@ function generateProgressCards() {
                     <div class="progress-details">
                         <div class="detail-row">
                             <div>
-                                <span class="detail-label">CollectÃ©es</span>
+                                <span class="detail-label">Collectées</span>
                                 <span class="detail-value">${commune.collected.toLocaleString()}</span>
                             </div>
                             <div>
-                                <span class="detail-label">ValidÃ©es</span>
+                                <span class="detail-label">Validées</span>
                                 <span class="detail-value">${commune.validated?.toLocaleString() || '0'}</span>
                             </div>
                             <div>
@@ -1484,7 +1484,7 @@ function generateProgressCards() {
                         
                         <div class="detail-row mt-2">
                             <div>
-                                <span class="detail-label">GÃ©omaticien</span>
+                                <span class="detail-label">Géomaticien</span>
                                 <span class="detail-value geomaticien-badge">${geomaticienName}</span>
                             </div>
                             <div>
@@ -1509,9 +1509,9 @@ function generateProgressCards() {
                         
                         ${hasDuplicateIssue || hasConflictIssue || hasJointureIssue ? `
                             <div class="alert-section mt-2">
-                                ${hasDuplicateIssue ? `<div class="alert-item"><i class="fas fa-exclamation-triangle"></i> Taux Ã©levÃ© de doublons (${duplicateRateDisplay}%)</div>` : ''}
+                                ${hasDuplicateIssue ? `<div class="alert-item"><i class="fas fa-exclamation-triangle"></i> Taux élevé de doublons (${duplicateRateDisplay}%)</div>` : ''}
                                 ${hasConflictIssue ? `<div class="alert-item"><i class="fas fa-exclamation-triangle"></i> Nombreux conflits (${conflictCount})</div>` : ''}
-                                ${hasJointureIssue ? `<div class="alert-item"><i class="fas fa-exclamation-triangle"></i> ProblÃ¨mes de jointure (${commune.unjoined})</div>` : ''}
+                                ${hasJointureIssue ? `<div class="alert-item"><i class="fas fa-exclamation-triangle"></i> Problèmes de jointure (${commune.unjoined})</div>` : ''}
                             </div>
                         ` : ''}
                     </div>
@@ -1636,35 +1636,35 @@ function updateLastRefreshTime() {
 function exportData(format = 'csv') {
     const data = communesData.map(commune => ({
         Commune: commune.commune,
-        RÃ©gion: commune.region,
+    Région: commune.region,
         'Total Parcelles': commune.totalParcelles,
         '% du Total': commune.percentTotal,
         NICAD: commune.nicad,
         '% NICAD': commune.percentNicad,
         CTASF: commune.ctasf,
         '% CTASF': commune.percentCtasf,
-        DÃ©libÃ©rÃ©es: commune.deliberated,
-        '% DÃ©libÃ©rÃ©e': commune.percentDeliberated,
+    Délibérées: commune.deliberated,
+    '% Délibérée': commune.percentDeliberated,
         'Parcelles brutes': commune.parcellesBrutes,
-        'Parcelles collectÃ©es (sans doublon gÃ©omÃ©trique)': commune.collected,
-        'Parcelles enquÃªtÃ©es': commune.surveyed,
+    'Parcelles collectées (sans doublon géométrique)': commune.collected,
+    'Parcelles enquêtées': commune.surveyed,
         'Motifs de rejet post-traitement': commune.rejectionReasons,
-        'Parcelles retenues aprÃ¨s post-traitement': commune.retained,
-        'Parcelles validÃ©es par lâ€™URM': commune.validated,
-        'Parcelles rejetÃ©es par lâ€™URM': commune.rejected,
+    'Parcelles retenues après post-traitement': commune.retained,
+    'Parcelles validées par l\'URM': commune.validated,
+    'Parcelles rejetées par l\'URM': commune.rejected,
         'Motifs de rejet URM': commune.urmRejectionReasons,
-        'Parcelles corrigÃ©es': commune.corrected,
+    'Parcelles corrigées': commune.corrected,
         Geomaticien: commune.geomaticien,
         'Parcelles individuelles jointes': commune.individualJoined,
         'Parcelles collectives jointes': commune.collectiveJoined,
         'Parcelles non jointes': commune.unjoined,
-        'Doublons supprimÃ©s': commune.duplicatesRemoved,
+    'Doublons supprimés': commune.duplicatesRemoved,
         'Taux suppression doublons (%)': commune.duplicateRemovalRate,
         'Parcelles en conflit': commune.parcelsInConflict,
         'Significant Duplicates': commune.significantDuplicates,
-        'Parc. post-traitÃ©es lot 1-46': commune.postProcessedLot1_46,
-        'Statut jointure': commune.jointureStatus,
-        'Message dâ€™erreur jointure': commune.jointureErrorMessage
+    'Parc. post-traitées lot 1-46': commune.postProcessedLot1_46,
+    'Statut jointure': commune.jointureStatus,
+    'Message d\'erreur jointure': commune.jointureErrorMessage
     }));
 
     if (format === 'csv') {
@@ -1701,33 +1701,33 @@ function exportWithColumnOrder() {
     // Column name mapping for display
     const columnDisplayNames = {
         'commune': 'Commune',
-        'region': 'RÃ©gion',
+    'region': 'Région',
         'totalParcelles': 'Total Parcelles',
         'percentTotal': '% du Total',
         'nicad': 'NICAD',
         'percentNicad': '% NICAD',
         'ctasf': 'CTASF',
         'percentCtasf': '% CTASF',
-        'deliberated': 'DÃ©libÃ©rÃ©es',
-        'percentDeliberated': '% DÃ©libÃ©rÃ©e',
+    'deliberated': 'Délibérées',
+    'percentDeliberated': '% Délibérée',
         'parcellesBrutes': 'Parcelles brutes',
-        'collected': 'Parcelles collectÃ©es (sans doublon gÃ©omÃ©trique)',
-        'surveyed': 'Parcelles enquÃªtÃ©es',
+    'collected': 'Parcelles collectées (sans doublon géométrique)',
+    'surveyed': 'Parcelles enquêtées',
         'rejectionReasons': 'Motifs de rejet post-traitement',
-        'retained': 'Parcelles retenues aprÃ¨s post-traitement',
-        'validated': 'Parcelles validÃ©es par l\'URM',
-        'rejected': 'Parcelles rejetÃ©es par l\'URM',
+    'retained': 'Parcelles retenues après post-traitement',
+    'validated': 'Parcelles validées par l\'URM',
+    'rejected': 'Parcelles rejetées par l\'URM',
         'urmRejectionReasons': 'Motifs de rejet URM',
-        'corrected': 'Parcelles corrigÃ©es',
+    'corrected': 'Parcelles corrigées',
         'geomaticien': 'Geomaticien',
         'individualJoined': 'Parcelles individuelles jointes',
         'collectiveJoined': 'Parcelles collectives jointes',
         'unjoined': 'Parcelles non jointes',
-        'duplicatesRemoved': 'Doublons supprimÃ©s',
+    'duplicatesRemoved': 'Doublons supprimés',
         'duplicateRemovalRate': 'Taux suppression doublons (%)',
         'parcelsInConflict': 'Parcelles en conflit',
         'significantDuplicates': 'Significant Duplicates',
-        'postProcessedLot1_46': 'Parc. post-traitÃ©es lot 1-46',
+    'postProcessedLot1_46': 'Parc. post-traitées lot 1-46',
         'jointureStatus': 'Statut jointure',
         'jointureErrorMessage': 'Message d\'erreur jointure'
     };
