@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Parcel Processing Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -58,9 +59,76 @@
                     <div class="user-menu">
                         <i class="fas fa-user-circle"></i>
                     </div>
-                </div>
-            </header>
+=======
+    <title>PROCASEF Boundou Operations Dashboard</title>
+    <meta name="description" content="Tableau de bord opérationnel complet pour le suivi des activités PROCASEF dans la région de Boundou">
+    <meta name="keywords" content="PROCASEF, Boundou, Dashboard, Agriculture, Land Management, Sénégal">
+    <meta name="author" content="PROCASEF Operations Team">
+    <meta property="og:title" content="PROCASEF Boundou Operations Dashboard">
+    <meta property="og:description" content="Suivi en temps réel des opérations foncières PROCASEF">
+    <meta property="og:type" content="website">
+    
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <!-- Internal Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <h3>Chargement du tableau de bord PROCASEF...</h3>
+            <p>Connexion aux données en cours...</p>
+        </div>
+    </div>
 
+    <!-- Main Dashboard Container -->
+    <div id="dashboardContainer" class="dashboard-container hidden">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo-section">
+                        <div class="logo-placeholder">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>PROCASEF</h1>
+                            <p>Boundou Operations Dashboard</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-center">
+                    <div class="live-status">
+                        <div class="status-indicator live"></div>
+                        <span>Données en temps réel</span>
+                    </div>
+                    <div class="last-update" id="lastUpdateTime">
+                        Dernière mise à jour: --:--
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <button class="btn btn-icon" id="refreshBtn" title="Actualiser les données">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button class="btn btn-icon" id="exportBtn" title="Exporter les données">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="btn btn-icon" id="settingsBtn" title="Paramètres">
+                        <i class="fas fa-cog"></i>
+                    </button>
+>>>>>>> ccefc2d96ffa426cc2460c82edfce43a72a0d2e9
+                </div>
+            </div>
+        </header>
+
+<<<<<<< HEAD
             <!-- Content Area -->
             <div class="content">
                 <!-- Overview Tab -->
@@ -213,10 +281,115 @@
                                 <h3>Geomaticien Workload</h3>
                             </div>
                             <canvas id="workloadChart"></canvas>
+=======
+        <!-- Navigation Tabs -->
+        <nav class="dashboard-nav">
+            <div class="nav-container">
+                <button class="nav-tab active" data-tab="executive">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Vue Exécutive</span>
+                </button>
+                <button class="nav-tab" data-tab="commune-status">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Statut Communes</span>
+                </button>
+                <button class="nav-tab" data-tab="collection">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Collecte de Données</span>
+                </button>
+                <button class="nav-tab" data-tab="geographic">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Opérations Géographiques</span>
+                </button>
+                <button class="nav-tab" data-tab="projections">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Projections</span>
+                </button>
+                <button class="nav-tab" data-tab="quality">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Contrôle Qualité</span>
+                </button>
+                <button class="nav-tab" data-tab="workflow">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Workflow</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="dashboard-main">
+            
+            <!-- Executive Summary Tab -->
+            <section id="executive" class="tab-content active">
+                <div class="tab-header">
+                    <h2>Vue d'ensemble Exécutive</h2>
+                    <p>Indicateurs clés de performance et métriques essentielles</p>
+                </div>
+                
+                <!-- KPI Cards Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card primary">
+                        <div class="kpi-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="totalParcelsKPI">0</h3>
+                            <p>Parcelles Totales</p>
+                            <div class="kpi-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="parcelsTrend">+12%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card success">
+                        <div class="kpi-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="nicadCompletionKPI">0%</h3>
+                            <p>Completion NICAD</p>
+                            <div class="kpi-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="nicadProgressFill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card warning">
+                        <div class="kpi-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="ctasfCompletionKPI">0%</h3>
+                            <p>Completion CTASF</p>
+                            <div class="kpi-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="ctasfProgressFill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card info">
+                        <div class="kpi-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 id="deliberationKPI">0%</h3>
+                            <p>Délibération</p>
+                            <div class="kpi-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="deliberationProgressFill"></div>
+                                </div>
+                            </div>
+>>>>>>> ccefc2d96ffa426cc2460c82edfce43a72a0d2e9
                         </div>
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <!-- Reports Tab -->
                 <div class="tab-content" id="reports">
                     <div class="reports-section">
@@ -236,10 +409,113 @@
                                 <h4>Performance Metrics</h4>
                                 <p>Team performance and efficiency metrics</p>
                                 <button class="btn btn-primary">Generate</button>
+=======
+                <!-- Executive Summary Content -->
+                <div class="executive-content">
+                    <div class="content-left">
+                        <!-- Collection Phase Overview -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Aperçu des Phases de Collecte</h3>
+                                <button class="btn btn-sm" id="collectionDownload">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="collectionPhaseChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Progression globale (replaces Performance des Équipes) -->
+                        <div class="dashboard-card" id="progressionGlobaleCard">
+                            <div class="card-header">
+                                <h3>Progression globale</h3>
+                                <div class="card-subtitle">Suivi des indicateurs clés</div>
+                            </div>
+                            <div class="progression-globale" id="progressionGlobale">
+                                <!-- Rows generated by JS: each row contains label, progress bar, percent -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-right">
+                        <!-- Regional Status -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Statut Régional</h3>
+                                <div class="card-controls">
+                                    <select id="regionFilter" class="form-select">
+                                        <option value="all">Toutes les régions</option>
+                                        <option value="tambacounda">Tambacounda</option>
+                                        <option value="kedougou">Kédougou</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="regional-status">
+                                <div class="region-item" data-region="tambacounda">
+                                    <div class="region-header">
+                                        <h4>Tambacounda</h4>
+                                        <span class="region-status status-processing">En cours</span>
+                                    </div>
+                                    <div class="region-metrics">
+                                        <div class="metric">
+                                            <span class="metric-label">Communes</span>
+                                            <span class="metric-value" id="tambacoundaCommunes">--</span>
+                                        </div>
+                                        <div class="metric">
+                                            <span class="metric-label">Completion</span>
+                                            <span class="metric-value" id="tambacoundaCompletion">--%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="region-item" data-region="kedougou">
+                                    <div class="region-header">
+                                        <h4>Kédougou</h4>
+                                        <span class="region-status status-pending">En attente</span>
+                                    </div>
+                                    <div class="region-metrics">
+                                        <div class="metric">
+                                            <span class="metric-label">Communes</span>
+                                            <span class="metric-value" id="kedougouCommunes">--</span>
+                                        </div>
+                                        <div class="metric">
+                                            <span class="metric-label">Completion</span>
+                                            <span class="metric-value" id="kedougouCompletion">--%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Actions Rapides</h3>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="action-btn" id="generateReportBtn">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Générer Rapport</span>
+                                </button>
+                                <button class="action-btn" id="exportDataBtn">
+                                    <i class="fas fa-table"></i>
+                                    <span>Exporter Données</span>
+                                </button>
+                                <button class="action-btn" id="syncDataBtn">
+                                    <i class="fas fa-sync"></i>
+                                    <span>Synchroniser</span>
+                                </button>
+                                <button class="action-btn" id="viewDetailBtn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>Voir Détails</span>
+                                </button>
+>>>>>>> ccefc2d96ffa426cc2460c82edfce43a72a0d2e9
                             </div>
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
             </div>
         </main>
 
@@ -251,5 +527,654 @@
     </div>
 
     <script src="script.js"></script>
+=======
+            </section>
+
+            <!-- Commune Status Tab -->
+            <section id="commune-status" class="tab-content">
+                <div class="tab-header">
+                    <h2>Statut Communes</h2>
+                    <p>Vue dédiée montrant le statut agrégé et détails par commune.</p>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Répartition des statuts par commune</h3>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-secondary chart-download" data-chart="communeStatusChart">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="communeStatusChart"></canvas>
+                        </div>
+                        <div class="chart-legend" id="communeStatusLegend"></div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Top Communes (détail)</h3>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-secondary chart-download" data-chart="communesChartDetailed">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="communesChartDetailed"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commune KPI Cards Grid -->
+                <div id="communeCards" class="commune-cards-grid" style="margin-top:16px;"></div>
+
+                <div class="activity-section">
+                    <h3>Alertes et indicateurs par commune</h3>
+                    <div class="commune-controls">
+                        <div class="controls-row">
+                            <div class="control-item">
+                                <label for="geomaticianFilter">Géomaticien</label>
+                                <select id="geomaticianFilter" class="form-select">
+                                    <option value="all">Tous</option>
+                                </select>
+                            </div>
+                            <div class="control-item kpi-cards" id="geomaticianKPIs">
+                                <!-- KPI cards for selected geomatician will be injected here -->
+                            </div>
+                            <div class="control-item">
+                                <button id="toggleColumnsBtn" class="btn btn-sm">Colonnes</button>
+                                <div id="columnVisibility" class="column-visibility" style="display:none;">
+                                    <strong>Afficher / Masquer</strong>
+                                    <div id="columnList"></div>
+                                </div>
+                                <button id="exportExcelBtn" class="btn btn-sm">Exporter XLSX</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="communeTableContainer" class="table-container">
+                        <table id="communeStatusTable" class="data-table">
+                            <!-- headers and rows generated dynamically -->
+                        </table>
+                    </div>
+
+                    <div id="communesListDetailed" class="activity-list"></div>
+                </div>
+            </section>
+
+            <!-- Data Collection Tab -->
+            <section id="collection" class="tab-content">
+                <div class="tab-header">
+                    <h2>Analyse de Collecte de Données</h2>
+                    <p>Suivi détaillé des opérations de collecte et outils utilisés</p>
+                </div>
+                
+                <div class="collection-dashboard">
+                    <div class="collection-left">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Répartition par Phase de Collecte</h3>
+                                <button class="btn btn-sm chart-download" data-chart="collectionBreakdown">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="collectionBreakdown"></canvas>
+                            </div>
+                            <div class="chart-insights">
+                                <div class="insight-item">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Phase principale: <strong id="dominantPhase">--</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Utilisation des Outils</h3>
+                                <button class="btn btn-sm chart-download" data-chart="toolUtilization">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="toolUtilization"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="collection-right">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Tendances de Collecte Quotidienne</h3>
+                                <div class="card-controls">
+                                    <select id="periodFilter" class="form-select">
+                                        <option value="7">7 derniers jours</option>
+                                        <option value="30">30 derniers jours</option>
+                                        <option value="90">3 derniers mois</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="chart-container large">
+                                <canvas id="collectionTrends"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Métriques de Productivité</h3>
+                            </div>
+                            <div class="productivity-metrics">
+                                <div class="metric-card">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <h4 id="avgTeamProductivity">--</h4>
+                                        <p>Parcelles/Équipe/Jour</p>
+                                    </div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <h4 id="avgProcessingTime">--</h4>
+                                        <p>Temps moyen de traitement</p>
+                                    </div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <h4 id="bestPerformingTeam">--</h4>
+                                        <p>Équipe la plus performante</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Geographic Operations Tab -->
+            <section id="geographic" class="tab-content">
+                <div class="tab-header">
+                    <h2>Hub Opérations Géographiques</h2>
+                    <p>Déploiement régional et statut des communes</p>
+                </div>
+                
+                <div class="geographic-dashboard">
+                    <div class="geo-top">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Matrice de Progression des Communes</h3>
+                                <div class="card-controls">
+                                    <button class="btn btn-sm" id="heatmapLegend">
+                                        <i class="fas fa-palette"></i>
+                                        Légende
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="heatmap-container">
+                                <div id="communeHeatmap" class="commune-heatmap">
+                                    <!-- Dynamic heatmap will be generated here -->
+                                </div>
+                                <div class="heatmap-legend" id="heatmapLegendContainer">
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #ef4444;"></div>
+                                        <span>0-25% (Critique)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #f59e0b;"></div>
+                                        <span>25-50% (En retard)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #3b82f6;"></div>
+                                        <span>50-75% (En cours)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #10b981;"></div>
+                                        <span>75-100% (Terminé)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="geo-bottom">
+                        <div class="geo-left">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Timeline de Déploiement d'Équipes</h3>
+                                </div>
+                                <div class="timeline-container">
+                                    <div id="deploymentTimeline" class="deployment-timeline">
+                                        <!-- Dynamic timeline will be generated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="geo-right">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Indicateurs de Statut</h3>
+                                </div>
+                                <div class="status-indicators">
+                                    <div class="indicator-group">
+                                        <h4>Tambacounda</h4>
+                                        <div class="indicators">
+                                            <div class="indicator" data-status="completed">
+                                                <div class="indicator-dot"></div>
+                                                <span>Terminées: <strong id="tambacoundaCompleted">0</strong></span>
+                                            </div>
+                                            <div class="indicator" data-status="processing">
+                                                <div class="indicator-dot"></div>
+                                                <span>En cours: <strong id="tambacoundaProcessing">0</strong></span>
+                                            </div>
+                                            <div class="indicator" data-status="pending">
+                                                <div class="indicator-dot"></div>
+                                                <span>En attente: <strong id="tambacoundaPending">0</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="indicator-group">
+                                        <h4>Kédougou</h4>
+                                        <div class="indicators">
+                                            <div class="indicator" data-status="completed">
+                                                <div class="indicator-dot"></div>
+                                                <span>Terminées: <strong id="kedougouCompleted">0</strong></span>
+                                            </div>
+                                            <div class="indicator" data-status="processing">
+                                                <div class="indicator-dot"></div>
+                                                <span>En cours: <strong id="kedougouProcessing">0</strong></span>
+                                            </div>
+                                            <div class="indicator" data-status="pending">
+                                                <div class="indicator-dot"></div>
+                                                <span>En attente: <strong id="kedougouPending">0</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Alertes Opérationnelles</h3>
+                                </div>
+                                <div class="alerts-container" id="operationalAlerts">
+                                    <!-- Dynamic alerts will be generated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projections Tab -->
+            <section id="projections" class="tab-content">
+                <div class="tab-header">
+                    <h2>Projections & Prévisions</h2>
+                    <p>Analyse prédictive et planification future</p>
+                </div>
+                
+                <div class="projections-dashboard">
+                    <div class="projections-top">
+                        <div class="dashboard-card large">
+                            <div class="card-header">
+                                <h3>Projections Multi-mois</h3>
+                                <div class="card-controls">
+                                    <select id="projectionType" class="form-select">
+                                        <option value="nicad">NICAD</option>
+                                        <option value="ctasf">CTASF</option>
+                                        <option value="public">Affichage Public</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="chart-container xlarge">
+                                <canvas id="multiMonthProjections"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="projections-bottom">
+                        <div class="projections-left">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Timeline d'Assignement NICAD</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="nicadTimelineChart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Progression Affichage Public</h3>
+                                </div>
+                                <div class="progress-steps" id="publicDisplayProgress">
+                                    <!-- Dynamic progress steps will be generated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="projections-right">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Prévision Completion CTASF</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="ctasfForecastChart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Métriques de Projection</h3>
+                                </div>
+                                <div class="projection-metrics">
+                                    <div class="projection-item">
+                                        <div class="projection-header">
+                                            <h4>Septembre 2025</h4>
+                                            <span class="projection-status status-warning">Critique</span>
+                                        </div>
+                                        <div class="projection-details">
+                                            <span>NICAD: <strong id="septNicad">--</strong></span>
+                                            <span>CTASF: <strong id="septCtasf">--</strong></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="projection-item">
+                                        <div class="projection-header">
+                                            <h4>Décembre 2025</h4>
+                                            <span class="projection-status status-success">Objectif</span>
+                                        </div>
+                                        <div class="projection-details">
+                                            <span>NICAD: <strong id="decNicad">--</strong></span>
+                                            <span>CTASF: <strong id="decCtasf">--</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quality Control Tab -->
+            <section id="quality" class="tab-content">
+                <div class="tab-header">
+                    <h2>Tableau de Bord Contrôle Qualité</h2>
+                    <p>Métriques de qualité et validation des données</p>
+                </div>
+                
+                <div class="quality-dashboard">
+                    <div class="quality-top">
+                        <div class="quality-cards">
+                            <div class="quality-card">
+                                <div class="quality-gauge">
+                                    <canvas id="errorRateGauge"></canvas>
+                                </div>
+                                <div class="quality-info">
+                                    <h4>Taux d'Erreur</h4>
+                                    <p id="errorRateValue">--%</p>
+                                </div>
+                            </div>
+                            
+                            <div class="quality-card">
+                                <div class="quality-gauge">
+                                    <canvas id="validationGauge"></canvas>
+                                </div>
+                                <div class="quality-info">
+                                    <h4>Validation URM</h4>
+                                    <p id="validationRateValue">--%</p>
+                                </div>
+                            </div>
+                            
+                            <div class="quality-card">
+                                <div class="quality-gauge">
+                                    <canvas id="duplicateGauge"></canvas>
+                                </div>
+                                <div class="quality-info">
+                                    <h4>Suppression Doublons</h4>
+                                    <p id="duplicateRateValue">--%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quality-middle">
+                        <div class="quality-left">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Analyse Taux d'Erreur</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="errorAnalysis"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quality-right">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Statistiques Validation URM</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="urmValidationStats"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quality-bottom">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Score de Qualité par Commune</h3>
+                            </div>
+                            <div class="quality-scores" id="communeQualityScores">
+                                <!-- Dynamic quality scores will be generated here -->
+                            </div>
+                            <div id="qualityAlerts" class="quality-alerts"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow Tab -->
+            <section id="workflow" class="tab-content">
+                <div class="tab-header">
+                    <h2>Workflow Opérationnel</h2>
+                    <p>Visualisation des processus et goulots d'étranglement</p>
+                </div>
+                
+                <div class="workflow-dashboard">
+                    <div class="workflow-top">
+                        <div class="dashboard-card full-width">
+                            <div class="card-header">
+                                <h3>Flux de Processus</h3>
+                                <div class="card-controls">
+                                    <button class="btn btn-sm" id="workflowLegend">
+                                        <i class="fas fa-info-circle"></i>
+                                        Aide
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="workflow-container">
+                                <div id="processFlow" class="process-flow">
+                                    <!-- Dynamic Sankey-style diagram will be generated here -->
+                                    <canvas id="processFlowCanvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-middle">
+                        <div class="workflow-left">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Identification des Goulots</h3>
+                                </div>
+                                <div class="bottleneck-system">
+                                    <div class="traffic-lights">
+                                        <div class="traffic-light" data-status="green">
+                                            <div class="light green active"></div>
+                                            <div class="light yellow"></div>
+                                            <div class="light red"></div>
+                                            <span class="traffic-label">Collecte</span>
+                                        </div>
+                                        <div class="traffic-light" data-status="yellow">
+                                            <div class="light green"></div>
+                                            <div class="light yellow active"></div>
+                                            <div class="light red"></div>
+                                            <span class="traffic-label">Validation</span>
+                                        </div>
+                                        <div class="traffic-light" data-status="red">
+                                            <div class="light green"></div>
+                                            <div class="light yellow"></div>
+                                            <div class="light red active"></div>
+                                            <span class="traffic-label">Jointure</span>
+                                        </div>
+                                    </div>
+                                    <div class="bottleneck-details" id="bottleneckDetails">
+                                        <!-- Dynamic bottleneck details will be generated here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Adhérence Méthodologique</h3>
+                                </div>
+                                <div class="methodology-checklist" id="methodologyChecklist">
+                                    <!-- Dynamic checklist will be generated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-right">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Classement Efficacité d'Équipes</h3>
+                                </div>
+                                <div class="team-leaderboard" id="teamLeaderboard">
+                                    <!-- Dynamic leaderboard will be generated here -->
+                                </div>
+                                <!-- Dynamic team assignments will be generated in the visible leaderboard -->
+                            </div>
+
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Notes Méthodologiques</h3>
+                                </div>
+                                <div class="methodology-notes" id="methodologyNotes">
+                                    <!-- Dynamic methodology notes will be generated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>&copy; 2025 PROCASEF - Projet de Cadastre Foncier du Sénégal</p>
+                    <p>Données sources: Google Sheets | Mise à jour automatique toutes les 5 minutes</p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <a href="#" id="dataSourcesBtn">Sources de Données</a>
+                        <a href="#" id="methodologyBtn">Méthodologie</a>
+                        <a href="#" id="supportBtn">Support</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Containers -->
+    <div id="modalContainer" class="modal-container hidden">
+        <!-- Dynamic modals will be generated here -->
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container">
+        <!-- Dynamic notifications will be generated here -->
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="settings-panel hidden">
+        <div class="settings-header">
+            <h3>Paramètres du Tableau de Bord</h3>
+            <button class="btn btn-icon" id="closeSettings">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="settings-content">
+            <div class="setting-group">
+                <h4>Actualisation des Données</h4>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="autoRefreshToggle" checked>
+                        Actualisation automatique
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Intervalle (minutes):</label>
+                    <select id="refreshInterval">
+                        <option value="1">1</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="30">30</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <h4>Affichage</h4>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="darkModeToggle">
+                        Mode sombre
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="animationsToggle" checked>
+                        Animations
+                    </label>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <h4>Notifications</h4>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="alertsToggle" checked>
+                        Alertes système
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="soundToggle">
+                        Notifications sonores
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="dashboard_js.js"></script>
+>>>>>>> ccefc2d96ffa426cc2460c82edfce43a72a0d2e9
 </body>
 </html>

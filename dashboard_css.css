@@ -441,6 +441,124 @@ canvas {
     white-space: nowrap;
 }
 
+/* Commune status table styling */
+#communeStatusTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-card);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+#communeStatusTable thead th {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,250,0.95));
+    color: var(--color-dark-blue);
+    text-align: left;
+    padding: 14px 16px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--color-border);
+    z-index: 5;
+}
+
+#communeStatusTable tbody tr {
+    transition: background-color 0.15s ease, transform 0.12s ease;
+}
+
+#communeStatusTable tbody tr:nth-child(odd) {
+    background: linear-gradient(90deg, rgba(250,250,250,0.8), rgba(255,255,255,0.8));
+}
+
+#communeStatusTable tbody tr:hover {
+    background-color: rgba(3, 102, 214, 0.04);
+    transform: translateY(-1px);
+}
+
+#communeStatusTable td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+    color: var(--color-text);
+}
+
+/* Geomatician badge */
+.geomatician-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    font-weight: 700;
+    color: white;
+    margin-right: 10px;
+    box-shadow: var(--shadow-sm);
+    font-size: 0.95rem;
+}
+
+.commune-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.commune-name .commune-title {
+    font-weight: 700;
+    color: var(--color-dark-blue);
+}
+
+.commune-name .commune-sub {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
+/* Numeric alignment */
+.table-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Small responsive tweaks */
+@media (max-width: 1100px) {
+    #communeStatusTable thead th:nth-child(n+6) { display: none; }
+    #communeStatusTable td:nth-child(n+6) { display: none; }
+}
+
+@media (max-width: 720px) {
+    #communeStatusTable thead th:nth-child(n+4) { display: none; }
+    #communeStatusTable td:nth-child(n+4) { display: none; }
+    .geomatician-badge { width: 28px; height: 28px; font-size: 0.85rem; }
+}
+
+/* Export / control spacing */
+.table-controls { display:flex; gap: 8px; align-items:center; margin-bottom: 12px; }
+
+/* Regional status cards */
+.region-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.region-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: var(--shadow-sm);
+}
+
+.region-card-inner { display: flex; flex-direction: column; gap: 10px; }
+.region-title { display:flex; align-items:center; justify-content:space-between; gap: 8px; }
+.region-title h4 { margin:0; font-size:1.05rem; color:var(--color-dark-blue); }
+.status-badge { padding:6px 8px; border-radius:8px; color:white; font-weight:700; font-size:0.8rem; }
+.status-completed { background: var(--color-success); }
+.status-processing { background: var(--color-info); }
+.status-pending { background: var(--color-warning); }
+.region-meta { display:flex; gap: 16px; align-items:center; }
+.meta-item { display:flex; flex-direction:column; }
+.meta-label { font-size:0.75rem; color:var(--color-text-light); }
+.meta-value { font-size:1.25rem; font-weight:700; color:var(--color-dark-blue); }
+
+
 .progress-bar {
     height: 10px;
     background-color: var(--color-border);
